@@ -13,12 +13,13 @@ class AllProducts extends React.Component {
     return (
       <div>
         {products.map(product => {
+          return (
           <div key={product.id}>
             <img src={product.imageUrl} />
             <div>{product.name}</div>
             <div>{product.price}</div>
             <div>{product.stock < 4 ? `There are only ${product.stock} left!` : product.stock}</div>
-          </div>
+          </div> )
         })}
       </div>
     )

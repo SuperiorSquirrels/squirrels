@@ -65,7 +65,7 @@ class Routes extends Component {
     return (
       <div>
         <Switch>
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route path="/products" component={AllProducts} />
         </Switch>
       </div>
