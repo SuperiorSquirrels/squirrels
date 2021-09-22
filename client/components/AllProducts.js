@@ -8,13 +8,16 @@ class AllProducts extends React.Component {
   }
 
   render() {
+    const products = this.props.products || [];
+    console.log('.......', products)
     return (
       <div>
-        {this.props.products.map(product => {
+        {products.map(product => {
           <div key={product.id}>
-            <ima src={product.imageUrl} />
+            <img src={product.imageUrl} />
             <div>{product.name}</div>
-            <div>{product.species}</div>
+            <div>{product.price}</div>
+            <div>{product.stock < 4 ? `There are only ${product.stock} left!` : product.stock}</div>
           </div>
         })}
       </div>

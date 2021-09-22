@@ -2,11 +2,13 @@ import axios from 'axios'
 
 const SET_PRODUCTS = 'SET_PRODECTS'
 
+// action type
 const setProducts = (products) => ({
   type: SET_PRODUCTS,
   products
 })
 
+// thunk
 export const fetchProducts = () => {
   return async (dispatch) => {
     const { data } = await axios.get('/api/products');
@@ -14,7 +16,8 @@ export const fetchProducts = () => {
   }
 }
 
-export default function(state = [], action) {
+// reducer
+function products(state = [], action) {
   switch (action.type) {
     case SET_PRODUCTS:
       return action.products
@@ -22,3 +25,5 @@ export default function(state = [], action) {
       return state
   }
 }
+
+export default products

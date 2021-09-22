@@ -1,5 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import AllProducts from './AllProducts'
 
 // export const Home = props => {
 //   const {username} = props
@@ -22,6 +24,9 @@ const Home = () => {
   return (
     <div>
       <h1>Welcome</h1>
+      <Link to="/products">
+        All Products
+      </Link>
     </div>
   )
 }

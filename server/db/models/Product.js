@@ -9,7 +9,23 @@ const Product = db.define('product', {
       notEmpty: true
     }
   },
-  species: {
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 10,
+    validate: {
+      min: 1
+    }
+  },
+  stock: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
+  },
+  animalType: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
@@ -21,9 +37,13 @@ const Product = db.define('product', {
     allowNull: false,
     defaultValue: "Details information come soon..."
   },
+  color: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: "https://st2.depositphotos.com/1001248/8423/v/950/depositphotos_84238526-stock-illustration-pets-shop.jpg"
+    defaultValue: "http://clipart-library.com/img/1934177.png"
   }
 })
 

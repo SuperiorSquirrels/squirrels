@@ -4,36 +4,52 @@ const {db, models: {Product} } = require('../server/db')
 
 const productsDummyData = [
   {
-    name: 'monkey food',
-    species: 'monkey'
+    name: 'plush monkey',
+    price: 10,
+    stock: 3,
+    animalType: 'monkey'
   },
   {
-    name: 'cat food',
-    species: 'cat'
+    name: 'plush cat',
+    price: 20,
+    stock: 10,
+    animalType: 'cat'
   },
   {
-    name: 'dog food',
-    species: 'dog'
+    name: 'plush dog',
+    price: 10,
+    stock: 20,
+    animalType: 'dog'
   },
   {
-    name: 'bird food',
-    species: 'bird'
+    name: 'plush bird',
+    price: 30,
+    stock: 30,
+    animalType: 'bird'
   },
   {
-    name: 'bear food',
-    species: 'bear'
+    name: 'plush bear',
+    price: 10,
+    stock: 30,
+    animalType: 'bear'
   },
   {
-    name: 'squirrel food',
-    species: 'squirrel'
+    name: 'plush squirrel',
+    price: 15,
+    stock: 7,
+    animalType: 'squirrel'
   },
   {
-    name: 'ball',
-    species: 'dog'
+    name: 'plush dog agian',
+    price: 40,
+    stock: 3,
+    animalType: 'dog'
   },
   {
-    name: 'cat teaser',
-    species: 'cat'
+    name: 'plush cat again',
+    price: 10,
+    stock: 5,
+    animalType: 'cat'
   },
 ]
 
