@@ -1,6 +1,57 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {Product} } = require('../server/db')
+
+const productsDummyData = [
+  {
+    name: 'plush monkey',
+    price: 10,
+    stock: 3,
+    animalType: 'monkey'
+  },
+  {
+    name: 'plush cat',
+    price: 20,
+    stock: 10,
+    animalType: 'cat'
+  },
+  {
+    name: 'plush dog',
+    price: 10,
+    stock: 20,
+    animalType: 'dog'
+  },
+  {
+    name: 'plush bird',
+    price: 30,
+    stock: 30,
+    animalType: 'bird'
+  },
+  {
+    name: 'plush bear',
+    price: 10,
+    stock: 30,
+    animalType: 'bear'
+  },
+  {
+    name: 'plush squirrel',
+    price: 15,
+    stock: 7,
+    animalType: 'squirrel'
+  },
+  {
+    name: 'plush dog agian',
+    price: 40,
+    stock: 3,
+    animalType: 'dog'
+  },
+  {
+    name: 'plush cat again',
+    price: 10,
+    stock: 5,
+    animalType: 'cat'
+  },
+]
 
 /**
  * seed - this function clears the database, updates tables to
@@ -11,19 +62,16 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+  const productions = await Promise.all(productsDummyData.map(product => Product.create(product)))
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${productions.length} users`)
   console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
+  // return {
+  //   users: {
+  //     cody: users[0],
+  //     murphy: users[1]
+  //   }
+  // }
 }
 
 /*
