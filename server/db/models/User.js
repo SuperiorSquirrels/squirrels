@@ -12,8 +12,48 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
+  },
   password: {
     type: Sequelize.STRING,
+    allowNull: false,
+  },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  streetName: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  houseNumber: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  cityName: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  state: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  zipCode: {
+    type: Sequelize.INTEGER,
+    allowNull: true
   }
 })
 

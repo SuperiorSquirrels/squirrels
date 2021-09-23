@@ -17,7 +17,7 @@ export const fetchProducts = () => {
 }
 
 // reducer
-function products(state = [], action) {
+function productsReducer(state = [], action) {
   switch (action.type) {
     case SET_PRODUCTS:
       return action.products
@@ -26,4 +26,4 @@ function products(state = [], action) {
   }
 }
 
-export default products
+export default productsReducer

@@ -16,7 +16,7 @@ export const fetchSingleProduct = (id) =>
   };
 
 // reducer
-function singleProduct(state = {}, action) {
+function singleProductReducer(state = {}, action) {
   switch (action.type) {
     case SET_SINGLEPRODUCT:
       return action.singleProduct;
@@ -25,4 +25,4 @@ function singleProduct(state = {}, action) {
   }
 }
 
-export default singleProduct;
+export default singleProductReducer;
