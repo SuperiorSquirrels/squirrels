@@ -18,15 +18,17 @@ import AllProducts from './AllProducts'
 //     username: state.auth.username
 //   }
 // }
-
-// we will change the home component to become more nicer later.
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome</h1>
-      <Link to="/products">
-        All Products
-      </Link>
+    <div style={{ textAlign:'center'}}>
+
+      <h1>Welcome to the SuperiorSquirrelStore!</h1>
+      <h3>Where we meet all of your stuffed animal needs</h3>
+
+      <p className={'styleme'} style={{ margin:'5rem'}} >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+
     </div>
   )
 }
