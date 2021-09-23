@@ -6,7 +6,7 @@ import AllProducts from "./components/AllProducts";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import SingleProduct from "./components/SingleProduct";
-// import {me} from './store'
+import NotFound from "./components/NotFound";
 
 /**
  * COMPONENT
@@ -69,7 +69,11 @@ class Routes extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/products" component={AllProducts} />
           <Route path="/products/:id(\d+)" component={SingleProduct} />
+ 
           <Route path="/users/signup" component={Signup} />
+          {/* make sure the NotFound route is the last route */}
+          <Route> <NotFound /> </Route>
+  
         </Switch>
       </div>
     );
