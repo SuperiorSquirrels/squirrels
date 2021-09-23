@@ -21,6 +21,14 @@ form div {
   display: inline-block;
 }
 
+/* class styling */
+.sad-squirrel {
+  width: 350px;
+  height: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .styleme {
 height: 443px;
 background: radial-gradient(50% 50% at 50.07% 50%, rgba(170, 83, 14, 0.59) 0%, rgba(226, 149, 65, 0.519323) 59.38%, rgba(249, 235, 186, 0) 100%);
