@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {Product} } = require('../server/db')
+const {db, models: { Product, User } } = require('../server/db')
 
 const productsDummyData = [
   {
@@ -53,6 +53,19 @@ const productsDummyData = [
   },
 ]
 
+const usersDummyData = [
+  {
+    username: 'Jiefei',
+    email: 'wangjfmh@gmail.com',
+    password: '123'
+  },
+  {
+    username: 'Lily',
+    email: 'lily@gmail.com',
+    password: '123'
+  },
+]
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -64,7 +77,9 @@ async function seed() {
   // Creating Users
   const productions = await Promise.all(productsDummyData.map(product => Product.create(product)))
 
-  console.log(`seeded ${productions.length} users`)
+  const users = await Promise.all(usersDummyData.map(user => User.create(user)))
+
+  console.log(`seeded ${productions.length}  products and ${users.length} users`)
   console.log(`seeded successfully`)
   // return {
   //   users: {
