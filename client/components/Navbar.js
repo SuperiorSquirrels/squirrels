@@ -49,7 +49,7 @@ import {logout} from '../store'
 
 const NavBar = () =>{
   return (
-  <div style={{ textAlign:'center'}}>
+  <div className='nav' style={{ textAlign:'center'}}>
     <h3>SuperiorSquirrelStore</h3>
     <div >
       <Link to="/"> Home </Link>
@@ -66,7 +66,7 @@ const NavBar = () =>{
           search
         </button>
       </form>
-      <Link style={{margin:".5rem"}} >
+      <Link to='/login' style={{margin:".5rem"}} >
       Login/Sign up
       </Link>
       <Link style={{margin:".5rem"}} >
