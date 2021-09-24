@@ -1,6 +1,8 @@
-const router = require('express').Router()
-const { models: { User }} = require('../db')
-module.exports = router
+const router = require("express").Router();
+const {
+  models: { User },
+} = require("../db");
+module.exports = router;
 
 // router.get('/', async (req, res, next) => {
 //   try {
@@ -16,11 +18,12 @@ module.exports = router
 //   }
 // })
 
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
+    console.log(req.body);
     const newUser = await User.create(req.body);
-    res.json(newUser)
+    res.json(newUser);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});

@@ -69,11 +69,13 @@ class Routes extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/products" component={AllProducts} />
           <Route path="/products/:id(\d+)" component={SingleProduct} />
- 
-          <Route path="/users/signup" component={Signup} />
+
+          <Route path="/signup" component={Signup} />
           {/* make sure the NotFound route is the last route */}
-          <Route> <NotFound /> </Route>
-  
+          <Route>
+            {" "}
+            <NotFound />{" "}
+          </Route>
         </Switch>
       </div>
     );
