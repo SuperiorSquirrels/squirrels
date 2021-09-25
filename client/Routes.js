@@ -2,46 +2,64 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import AllProducts from "./components/AllProducts";
-// import { Login, Signup } from './components/AuthForm';
+//import AuthForm, { Login, Signup } from './components/AuthForm';
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import SingleProduct from "./components/SingleProduct";
 import NotFound from "./components/NotFound";
-import Login from "./components/LoginForm";
+//import Login from "./components/LoginForm";
+import {Navbar} from "./components/Navbar";
+import AuthForm from "./components/AuthForm";
 
 /**
  * COMPONENT
  */
-// class Routes extends Component {
-//   componentDidMount() {
-//     this.props.loadInitialData()
-//   }
+class Routes extends Component {
+  componentDidMount() {
+    //this.props.loadInitialData()
+  }
 
-//   render() {
-//     const {isLoggedIn} = this.props
+  render() {
+    //const {isLoggedIn} = this.props
 
-//     return (
-//       <div>
-//         {isLoggedIn ? (
-//           <Switch>
-//             <Route path="/home" component={Home} />
-//             <Redirect to="/home" />
-//           </Switch>
-//         ) : (
-//           <Switch>
-//             <Route path='/' exact component={ Login } />
-//             <Route path="/login" component={Login} />
-//             <Route path="/signup" component={Signup} />
-//           </Switch>
-//         )}
-//       </div>
-//     )
-//   }
-// }
+    return (
+      <div>
+        {/* {isLoggedIn ? (
+          <Switch>
+            <Route path="/home" component={Home} />
+            <Redirect to="/home" />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path="/products" component={AllProducts} />
 
-// /**
-//  * CONTAINER
-//  */
+            <Route path='/' exact component={ Login } />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/products/:id(\d+)" component={SingleProduct} />
+            <Route>
+             <NotFound />
+           </Route>
+          </Switch>
+        )} */}
+        <Navbar />
+        <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/home" component={Home} />
+            {/* <Redirect to="/home" /> */}
+            <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/login" component={AuthForm} />
+            <Route exact path="/signup" component={Signup} />
+            <Route path="/products/:id(\d+)" component={SingleProduct} />
+          </Switch>
+      </div>
+    )
+  }
+}
+
+/**
+ * CONTAINER
+ */
 // const mapState = state => {
 //   return {
 //     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
@@ -62,25 +80,25 @@ import Login from "./components/LoginForm";
 // // when the url changes
 // export default withRouter(connect(mapState, mapDispatch)(Routes))
 
-class Routes extends Component {
-  render() {
-    return (
-      <div>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/products" component={AllProducts} />
-          <Route exact path="/login" component={Login} />
-           <Route exact path="/signup" component={Signup} />
-          <Route path="/products/:id(\d+)" component={SingleProduct} />
+// class Routes extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <Switch>
+//           <Route exact path="/" component={Home} />
+//           <Route exact path="/products" component={AllProducts} />
+//           <Route exact path="/login" component={Login} />
+//            <Route exact path="/signup" component={Signup} />
+//           <Route path="/products/:id(\d+)" component={SingleProduct} />
 
-          {/* make sure the NotFound route is the last route */}
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </div>
-    );
-  }
-}
+//           {/* make sure the NotFound route is the last route */}
+//           <Route>
+//             <NotFound />
+//           </Route>
+//         </Switch>
+//       </div>
+//     );
+//   }
+// }
 
 export default Routes;

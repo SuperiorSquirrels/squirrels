@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { models: {User }} = require('../db')
 module.exports = router
 
+
 router.post('/login', async (req, res, next) => {
   try {
     res.send({ token: await User.authenticate(req.body)}); 
@@ -9,6 +10,7 @@ router.post('/login', async (req, res, next) => {
     next(err)
   }
 })
+
 
 
 router.post('/signup', async (req, res, next) => {
@@ -24,10 +26,41 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
+
 router.get('/me', async (req, res, next) => {
   try {
     res.send(await User.findByToken(req.headers.authorization))
-  } catch (ex) {
-    next(ex)
+  } catch (err) {
+    next(err)
   }
 })
+
+// router.get('/me', requireToken, async(req, res, next) => {
+  //   if(req.user) {
+    //     res.send(req.user);
+    //   } else {
+      //     res.sendStatus(404);
+      //   }
+      // })
+      
+      // const requireToken = async (req, res, next) => {
+      //   try {
+      //     const token = req.headers.authorization;
+      //     const user = await User.findByToken(token);
+      //     req.user = user;
+      //     next();
+      //   } catch(error) {
+      //     next(error);
+      //   }
+      // };
+      
+      // router.post("/login", async (req, res, next) => {
+      //   try {
+      //     const user = await User.authenticate(req.body);
+      //     if(!user) res.sendStatus(404);
+      //     const token = await user.generateToken();
+      //     res.send(token);
+      //   } catch (err) {
+      //     next(err);
+      //   }
+      // });

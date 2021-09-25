@@ -1,33 +1,34 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
+  console.log('props', props)
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div style={{textAlign: 'center'}} >
+      <h1 style={{margin: '5rem'}}>Please sign in</h1>
+      <form className='signup' onSubmit={handleSubmit} name={name}>
+        <label style={{display:'inline-flex'}} htmlFor="username">
+          <p>Username</p>
+          <input style={{height:'50%'}, {margin: '.5rem'}} type="text" name="username" />
+        </label>
+        <label style={{display:'inline-flex'}} htmFor="password">
+          <p>Password</p>
+          <input style={{height:'50%'}, {margin: '.5rem'}} type="text" name="password"/>
+        </label>
         <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit">Login {displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
+      <p>Not registered? You can sign up below!</p>
+      <Link to='/signup'> Sign up</Link>
+
     </div>
   )
 }
@@ -56,6 +57,7 @@ const mapSignup = state => {
 }
 
 const mapDispatch = dispatch => {
+  //console.log('event', evt)
   return {
     handleSubmit(evt) {
       evt.preventDefault()
@@ -69,3 +71,28 @@ const mapDispatch = dispatch => {
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export default AuthForm
+
+  // <div>
+  //   <form onSubmit={handleSubmit} name={name}>
+  //     <div>
+  //       <label htmlFor="username">
+  //         <small>Username</small>
+  //       </label>
+  //       <input name="username" type="text" />
+  //     </div>
+  //     <div>
+  //       <label htmlFor="password">
+  //         <small>Password</small>
+  //       </label>
+  //       <input name="password" type="password" />
+  //     </div>
+  //     <div>
+  //       <button type="submit">{displayName}submit </button>
+  //     </div>
+  //     {error && error.response && <div> {error.response.data} </div>}
+  //   </form>
+  //   <p>Not registered? You can sign up below!</p>
+  //   <Link to='/signup'> Sign up</Link>
+  
+  // </div>
