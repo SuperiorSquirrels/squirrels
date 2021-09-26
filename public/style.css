@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background-color: #F5C16C;
+  background-color: #f5c16c;
 }
 
 a {
@@ -23,17 +23,16 @@ form div {
 
 /* class styling */
 .nav {
-  background-color:ivory ;
+  background-color: ivory;
 }
 .signup {
-  background-color:#DF8931;
+  background-color: #df8931;
   margin-left: 8rem;
   margin-right: 8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 1.5%;
-
 }
 
 .sad-squirrel {
@@ -44,6 +43,116 @@ form div {
   margin-right: auto;
 }
 .styleme {
-height: 443px;
-background: radial-gradient(50% 50% at 50.07% 50%, rgba(170, 83, 14, 0.59) 0%, rgba(226, 149, 65, 0.519323) 59.38%, rgba(249, 235, 186, 0) 100%);
+  height: 443px;
+  background: radial-gradient(
+    50% 50% at 50.07% 50%,
+    rgba(170, 83, 14, 0.59) 0%,
+    rgba(226, 149, 65, 0.519323) 59.38%,
+    rgba(249, 235, 186, 0) 100%
+  );
+}
+
+.all-products {
+  width: 90%;
+  max-width: 1240px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .all-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 800px) {
+  .all-products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .all-products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 #aa530e;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 240px;
+  font-size: 12px;
+  color: white;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 #aa530e;
+}
+
+.container {
+  padding: 2px 16px;
+  background: #df8931;
+}
+
+.product-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.single-product-img {
+  float: left;
+  width: 40%;
+  margin: 20px 20px 20px 60px;
+}
+
+.single-product-card {
+  float: right;
+  flex-direction: column;
+  width: 50%;
+  margin: 20px;
+  font-size: 20px;
+}
+
+.productInfo {
+  font-weight: bold;
+}
+
+select {
+  padding: 15px 32px;
+  display: inline;
+  background-color: #df8931;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+#addToCart-button {
+  background-color: #df8931;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  margin: 20px 20px 20px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+#addToCart-button:hover {
+  box-shadow: 0 2px 8px 0 #aa530e
+}
+
+#goBackToAllPro-button {
+  background-color: #df8931;
+  border: none;
+  color: white;
+  width: 100%;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
 }

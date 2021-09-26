@@ -39,11 +39,12 @@ const Product = db.define('product', {
   },
   color: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: true,
+    defaultValue: "Details information come soon..."
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: "http://clipart-library.com/img/1934177.png"
+    defaultValue: "https://cdn.dribbble.com/users/1044993/screenshots/12436018/media/4af5b5c62eba141322e11e2747a1d9fd.png?compress=1&resize=1600x1200"
   }
 })
 

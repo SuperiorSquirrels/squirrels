@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { models: {User }} = require('../db')
 module.exports = router
 
+
 router.post('/login', async (req, res, next) => {
   try {
     res.send({ token: await User.authenticate(req.body)}); 
@@ -9,6 +10,7 @@ router.post('/login', async (req, res, next) => {
     next(err)
   }
 })
+
 
 
 router.post('/signup', async (req, res, next) => {
@@ -24,10 +26,12 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
+
 router.get('/me', async (req, res, next) => {
   try {
     res.send(await User.findByToken(req.headers.authorization))
-  } catch (ex) {
-    next(ex)
+  } catch (err) {
+    next(err)
   }
 })
+

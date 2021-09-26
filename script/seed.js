@@ -42,7 +42,7 @@ const productsDummyData = [
   {
     name: 'plush dog agian',
     price: 40,
-    stock: 3,
+    stock: 4,
     animalType: 'dog'
   },
   {
