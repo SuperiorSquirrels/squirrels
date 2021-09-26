@@ -1,7 +1,7 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
 
 // const Navbar = ({handleClick, isLoggedIn}) => (
 //   <div>
@@ -46,37 +46,25 @@ import {logout} from '../store'
 
 // export default connect(mapState, mapDispatch)(Navbar)
 
-
-const NavBar = () =>{
+const NavBar = () => {
   return (
-  <div style={{ textAlign:'center'}}>
-    <h3>SuperiorSquirrelStore</h3>
-    <div >
-      <Link to="/"> Home </Link>
-      <Link to="/products" style={{margin:".5rem"}}>
-        Products
-      </Link>
+    <div style={{ textAlign: "center" }}>
+      <h3>SuperiorSquirrelStore</h3>
+      <div>
+        <Link to="/"> Home </Link>
+        <Link to="/products" style={{ margin: ".5rem" }}>
+          Products
+        </Link>
 
-      <form action="/" style={{display: "inline-block"}} >
-        <input
-        type="text"
-        placeholder="Search for Stuffies"
-        />
-        <button>
-          search
-        </button>
-      </form>
-      <Link style={{margin:".5rem"}} >
-      Login/Sign up
-      </Link>
-      <Link style={{margin:".5rem"}} >
-      Cart
-      </Link>
+        <form action="/" style={{ display: "inline-block" }}>
+          <input type="text" placeholder="Search for Stuffies" />
+          <button>search</button>
+        </form>
+        <Link style={{ margin: ".5rem" }}>Login/Sign up</Link>
+        <Link style={{ margin: ".5rem" }}>Cart</Link>
+      </div>
     </div>
+  );
+};
 
-  </div>
-
-    )
-}
-
-export default NavBar
+export default NavBar;
