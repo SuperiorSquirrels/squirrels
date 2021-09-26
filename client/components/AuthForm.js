@@ -1,17 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-  console.log('props', props)
+  //console.log('props', props)
   return (
     <div style={{textAlign: 'center'}} >
-      <h1 style={{margin: '5rem'}}>Please sign in</h1>
+      <h1 style={{margin: '5rem'}}>Please {displayName}</h1>
       <form className='signup' onSubmit={handleSubmit} name={name}>
         <label style={{display:'inline-flex'}} htmlFor="username">
           <p>Username</p>
@@ -22,12 +22,12 @@ const AuthForm = props => {
           <input style={{height:'50%'}, {margin: '.5rem'}} type="text" name="password"/>
         </label>
         <div>
-          <button type="submit">Login {displayName}</button>
+          <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <p>Not registered? You can sign up below!</p>
-      <Link to='/signup'> Sign up</Link>
+      {/* <p>Not registered? You can sign up below!</p>
+      <Link to='/signup'> Sign up</Link> */}
 
     </div>
   )
@@ -71,7 +71,7 @@ const mapDispatch = dispatch => {
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
-export default AuthForm
+//export default AuthForm
 
   // <div>
   //   <form onSubmit={handleSubmit} name={name}>

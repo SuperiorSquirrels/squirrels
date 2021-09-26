@@ -3,15 +3,15 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import AllProducts from './AllProducts'
 
-const Home = props => {
-  //const {username} = props
+export const Home = props => {
+  const {username} = props
 
   return (
     // <div>
     //   <h3>Welcome, {username}</h3>
     // </div>
     <div style={{ textAlign:'center'}}>
-
+      <h3>Welcome, {username}</h3>
       <h1>Welcome to the SuperiorSquirrelStore!</h1>
        <h3>Where we meet all of your stuffed animal needs</h3>
 
@@ -28,6 +28,9 @@ const mapState = state => {
     username: state.auth.username
   }
 }
+
+export default connect(mapState)(Home)
+
 // const Home = () => {
 //   return (
 //     <div style={{ textAlign:'center'}}>
@@ -43,4 +46,4 @@ const mapState = state => {
 //   )
 // }
 
-export default Home
+//export default Home
