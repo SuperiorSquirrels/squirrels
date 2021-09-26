@@ -6,14 +6,16 @@ export default function Product(props) {
   const id = product.id;
   return (
     <Link to={`/products/${id}`}>
-      <div>
-        <img src={product.imageUrl} />
-        <div>{product.name}</div>
-        <div>{product.price}</div>
-        <div>
-          {product.stock < 4
-            ? `There are only ${product.stock} left!`
-            : "In Stock!"}
+      <div className="card">
+        <img alt="Avatar" style={{width: '15rem'}} src={product.imageUrl}/>
+        <div className="container">
+          <div className="product-name">{product.name}</div>
+          <div>{`$${product.price}`}</div>
+          <div>
+            {product.stock < 4
+              ? `There are only ${product.stock} left!`
+              : "In Stock"}
+          </div>
         </div>
       </div>
     </Link>
