@@ -94,5 +94,5 @@ export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
   //   </form>
   //   <p>Not registered? You can sign up below!</p>
   //   <Link to='/signup'> Sign up</Link>
-  
+
   // </div>
