@@ -10,6 +10,7 @@ import SingleProduct from "./components/SingleProduct";
 import NotFound from "./components/NotFound";
 
 import {me} from "./store"
+import Cart from "./components/Cart";
 
 /**
  * COMPONENT
@@ -42,6 +43,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/cart" component={Cart} />
             <Route exact path="/products/:id(\d+)" component={SingleProduct} />
             <Route>
              <NotFound />
