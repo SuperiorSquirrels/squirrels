@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 
 //action type
 const CREATE_USER = "CREATE_USER";
@@ -12,21 +12,20 @@ const createUserAction = (user) => {
 };
 
 //T H U N K
-export const createUserThunk = (user) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.post("api/users", user);
-      dispatch(createUserAction(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+export const authenticationThunk = (user) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`/auth/signup`, user);
+    dispatch(createUserAction(data));
+  } catch (error) {
+    return dispatch(createUserAction({ error: error }));
+  }
 };
 
 export default function createUserReducer(state = [], action) {
   switch (action.type) {
     case CREATE_USER:
-      return [...state, action.user];
+      return action.user;
     default:
       return state;
   }
