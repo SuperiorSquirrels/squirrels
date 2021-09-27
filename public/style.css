@@ -22,6 +22,20 @@ form div {
 }
 
 /* class styling */
+.nav {
+  background-color:ivory ;
+}
+.signup {
+  background-color:#DF8931;
+  margin-left: 8rem;
+  margin-right: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1.5%;
+
+}
+
 .sad-squirrel {
   width: 350px;
   height: 500px;
