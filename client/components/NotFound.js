@@ -21,10 +21,22 @@ class NotFound extends React.Component {
 
   render() {
   const products = this.props.products || [];
-  const random1 = Math.floor(Math.random() * 4)
-  const random2 = Math.floor(Math.random() * (products.length - random1))
-  console.log('🧤 random2', random2);
-
+  let uniqueRandoms = [];
+  // generate three random indexes
+  const generateIdxes = () => {
+    const randomNumGen = () =>{
+      return Math.floor(Math.random() * products.length)
+    }
+    while(uniqueRandoms.length < 3){
+      let newIdx = randomNumGen()
+      if (uniqueRandoms.indexOf(newIdx) === -1){
+        uniqueRandoms.push(newIdx)
+      }
+    }
+  }
+  if(products.length > 1){
+    generateIdxes()
+  }
    return (
     <div style={{textAlign:'center'}}>
       <p style={{marginTop:'3rem'}}>
@@ -32,9 +44,8 @@ class NotFound extends React.Component {
       </p>
       <img className="sad-squirrel" src="https://live.staticflickr.com/7240/7265356576_d283619fc5_b.jpg" />
       <p>Here are some friendly furries that do exist</p>
-      <div>
-        {/* fix mapping  */}
-          {products.filter((product, idx) => idx < random2).map((product) => (
+      <div className="all-products">
+          {products.filter((product, idx) => uniqueRandoms.includes(idx)).map((product) => (
             <Product key={product.id} product={product} />
           ))}
       </div>

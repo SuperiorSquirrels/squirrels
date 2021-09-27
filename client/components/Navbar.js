@@ -48,47 +48,30 @@ import { logout } from "../store";
 
 const NavBar = () => {
   return (
-<<<<<<< HEAD
-    <div style={{ textAlign: "center" }}>
+    <div className='nav' style={{ textAlign:'center'}}>
       <h3>SuperiorSquirrelStore</h3>
-      <div>
+      <div >
         <Link to="/"> Home </Link>
-        <Link to="/products" style={{ margin: ".5rem" }}>
+        <Link to="/products" style={{margin:".5rem"}}>
           Products
         </Link>
 
-        <form action="/" style={{ display: "inline-block" }}>
-          <input type="text" placeholder="Search for Stuffies" />
-          <button>search</button>
+        <form action="/" style={{display: "inline-block"}} >
+          <input
+          type="text"
+          placeholder="Search for Stuffies"
+          />
+          <button>
+            search
+          </button>
         </form>
-        <Link style={{ margin: ".5rem" }}>Login/Sign up</Link>
-        <Link style={{ margin: ".5rem" }}>Cart</Link>
+        <Link to='/login' style={{margin:".5rem"}} >
+        Login/Sign up
+        </Link>
+        <Link style={{margin:".5rem"}} >
+        Cart
+        </Link>
       </div>
-=======
-  <div className='nav' style={{ textAlign:'center'}}>
-    <h3>SuperiorSquirrelStore</h3>
-    <div >
-      <Link to="/"> Home </Link>
-      <Link to="/products" style={{margin:".5rem"}}>
-        Products
-      </Link>
-
-      <form action="/" style={{display: "inline-block"}} >
-        <input
-        type="text"
-        placeholder="Search for Stuffies"
-        />
-        <button>
-          search
-        </button>
-      </form>
-      <Link to='/login' style={{margin:".5rem"}} >
-      Login/Sign up
-      </Link>
-      <Link style={{margin:".5rem"}} >
-      Cart
-      </Link>
->>>>>>> main
     </div>
   );
 };

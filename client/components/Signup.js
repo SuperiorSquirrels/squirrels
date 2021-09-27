@@ -72,28 +72,30 @@ class Signup extends React.Component {
       );
     }
     return (
-      <div>
+      <div style={{textAlign: 'center'}}>
         <h3>WE ARE SO HAPPY YOU'RE GOING TO JOIN US!</h3>
         <form onSubmit={this.handleSubmit}>
-          <ul>
+          <ul style={{listStyle:'none'}}>
             <li>
-              <label name="email">email: </label>
+              <label style={{ display: "inline-block" }, {display:'inline-flex'}} name="email">email: </label>
               <input
                 name="email"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.email}
+                style={{margin:'.5rem'}}
               />
             </li>
             {this.state.isEmailFormat ? "" : <div>wrong email format</div>}
             {errorName === "email" ? <div> Email already in use</div> : ""}
             <li>
-              <label name="username">username: </label>
+              <label style={{ display: "inline-block" }} name="username">username: </label>
               <input
                 name="username"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.username}
+                style={{margin:'.5rem'}}
               />
             </li>
             {errorName === "username" ? (
@@ -102,21 +104,23 @@ class Signup extends React.Component {
               ""
             )}
             <li>
-              <label name="password">password: </label>
+              <label style={{ display: "inline-block" }} name="password">password: </label>
               <input
                 name="password"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.password}
+                style={{margin:'.5rem'}}
               />
             </li>
             <li>
-              <label name="confirmPassword">confirm password: </label>
+              <label style={{ display: "inline-block" }} name="confirmPassword">confirm password: </label>
               <input
                 name="confirmPassword"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.confirmPassword}
+                style={{margin:'.5rem'}}
               />
             </li>
             {this.state.password === this.state.confirmPassword ? (
