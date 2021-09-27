@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createUserThunk } from "../store/createUser";
+import { authenticationThunk } from "../store/createUser";
 import { Link } from "react-router-dom";
 
 class Signup extends React.Component {
@@ -12,7 +12,6 @@ class Signup extends React.Component {
       password: "",
       confirmPassword: "",
       isEmailFormat: true,
-      allGood: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,23 +46,31 @@ class Signup extends React.Component {
   }
 
   render() {
-    // if (
-    //   this.props.userInfo.isEmail === "email already in use" &&
-    //   this.props.userInfo.isUsername === "username already in use" &&
-    //   this.state.confirmPassword !== this.state.password
-    // ) {
-    //   this.setState({
-    //     allGood: true,
-    //   });
-    // }
-    // if (this.state.allGood) {
-    //   return (
-    //     <div>
-    //       <div> Thank you for joining us we look forward to you patronage</div>
-    //       <Link to="/products">Back to store</Link>
-    //     </div>
-    //   );
-    // }
+    const { error } = this.props;
+    let errorName;
+    if (
+      error &&
+      error.response &&
+      error.response.data === "Username already in use"
+    ) {
+      errorName = "username";
+    }
+    if (
+      error &&
+      error.response &&
+      error.response.data === "Email already in use"
+    ) {
+      errorName = "email";
+    }
+
+    if (this.props.token) {
+      return (
+        <div>
+          <div>Your acount was created!</div>
+          <Link to="/products">Return to find your new best friend!</Link>
+        </div>
+      );
+    }
     return (
       <div>
         <h3>WE ARE SO HAPPY YOU'RE GOING TO JOIN US!</h3>
@@ -79,11 +86,7 @@ class Signup extends React.Component {
               />
             </li>
             {this.state.isEmailFormat ? "" : <div>wrong email format</div>}
-            {this.props.userInfo.isEmail === "email already in use" ? (
-              <div> email already in use</div>
-            ) : (
-              ""
-            )}
+            {errorName === "email" ? <div> Email already in use</div> : ""}
             <li>
               <label name="username">username: </label>
               <input
@@ -93,8 +96,8 @@ class Signup extends React.Component {
                 value={this.state.username}
               />
             </li>
-            {this.props.userInfo.isUsername === "username already in use" ? (
-              <div>username already in use</div>
+            {errorName === "username" ? (
+              <div> Username already in use</div>
             ) : (
               ""
             )}
@@ -130,11 +133,12 @@ class Signup extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  userInfo: state.createUser,
+  error: state.createUser.error,
+  token: state.createUser.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (user) => dispatch(createUserThunk(user)),
+  createUser: (user) => dispatch(authenticationThunk(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
