@@ -5,6 +5,10 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
+}
+a:hover {
+  color: #00F
 }
 
 label {
@@ -78,6 +82,25 @@ form div {
   .all-products {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+.cart-item {
+  box-shadow: 0 4px 8px 0 #aa530e;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* margin: auto; */
+  /* float: right; */
+  /* max-width: 240px; */
+  font-size: 12px;
+  background-color: white;
+  color: #aa530e;
+  /* margin: 1rem; */
+  margin-left: 15px;
+  margin-bottom: 1rem;
+}
+
+.cart-display{
+  display: flex;
+  flex-direction: row;
 }
 
 .card {
