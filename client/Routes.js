@@ -31,6 +31,7 @@ class Routes extends Component {
             {/* <Redirect to="/home" /> */}
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id(\d+)" component={SingleProduct} />
+            <Route exact path="/cart/:id(\d+)" component={Cart} />
             {/* <Route>
              <NotFound />
            </Route> */}

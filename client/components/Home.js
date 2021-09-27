@@ -25,6 +25,7 @@ export const Home = props => {
 
 const mapState = state => {
   return {
+    // userId: state.auth.id,
     username: state.auth.username
   }
 }
