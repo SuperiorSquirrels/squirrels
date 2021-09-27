@@ -47,7 +47,7 @@ router.put("/update/:id", async (req, res, next) => {
           createdAt: "2021-09-27T20:44:21.952Z",
           updatedAt: "2021-09-27T20:44:21.952Z",
           order_products: {
-            singleProductTotalPrice: 30,
+            singleProductTotalPrice: 120,
             singleProductTotalQuantity: 3,
             createdAt: "2021-09-27T20:44:22.311Z",
             updatedAt: "2021-09-27T20:44:22.311Z",
@@ -57,6 +57,14 @@ router.put("/update/:id", async (req, res, next) => {
         }
       ]
     }
+
+    // const dummyBody = {
+    //   id: 8,
+    //   name: "plush cat agian",
+    //   price: 10,
+    //   singleProductTotalPrice: 120,
+    //   singleProductTotalQuantity: 3,
+    // }
 
     // once we finished the frontEnd, we need to use req.body instead of below dummyBody as the parameter of the update function.
     const updateOrder = await activeOrderDetails[0].update(dummyBody)
