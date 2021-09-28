@@ -83,7 +83,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 const Navbar = ({ handleClick, isLoggedIn, userId }) => {
-  console.log('..............userId', userId)
   let cartUrl = "cart";
   if (isLoggedIn && userId) {
     cartUrl = `cart/${userId}`

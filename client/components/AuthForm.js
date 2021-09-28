@@ -17,7 +17,7 @@ const AuthForm = props => {
           <p>Username</p>
           <input style={{height:'50%'}, {margin: '.5rem'}} type="text" name="username" />
         </label>
-        <label style={{display:'inline-flex'}} htmFor="password">
+        <label style={{display:'inline-flex'}} htmlFor="password">
           <p>Password</p>
           <input style={{height:'50%'}, {margin: '.5rem'}} type="text" name="password"/>
         </label>
