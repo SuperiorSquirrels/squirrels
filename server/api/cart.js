@@ -52,8 +52,16 @@ router.put("/update/:id", async (req, res, next) => {
         userId: req.params.id,
         isCart: true,
       },
-      include: Product,
-    });
+      include: Product
+    })
+
+    // newBranch should include below code
+    const orderDetail = req.body.orderDetail;
+    orderDetail.orderId = activeOrderDetails[0].id
+
+    // if we want to edit the quantity we need to check if the productId is an id is already in use.
+    // Then we use update method.
+    await Order_Products.create(orderDetail);
 
     const wholeNewUpdate = await Order.findAll({
       where: {
