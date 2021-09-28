@@ -54,6 +54,7 @@ router.put("/update/:id", async (req, res, next) => {
       include: Product
     })
 
+    // newBranch should include below code
     const orderDetail = req.body.orderDetail;
     orderDetail.orderId = activeOrderDetails[0].id
 
