@@ -1,9 +1,8 @@
 const router = require("express").Router();
 const {
   models: { Order, Product, Order_Products },
-  models,
 } = require("../db");
-const Order_Products = require("../db/models/OrderProducts");
+
 
 router.get("/:id", async (req, res, next) => {
   try {
@@ -14,6 +13,7 @@ router.get("/:id", async (req, res, next) => {
       },
       include: Product,
     });
+
     res.json(activeOrderDetails);
   } catch (err) {
     next(err);
@@ -66,31 +66,6 @@ router.post("/:id", async (req, res, next) => {
   }
 });
 
-// const amidala = await User.create({ username: 'p4dm3', points: 1000 });
-// const queen = await Profile.create({ name: 'Queen' });
-// await amidala.addProfile(queen, { through: { selfGranted: false } });
-// const result = await User.findOne({
-//   where: { username: 'p4dm3' },
-//   include: Profile
-// });
-// console.log(result);
-
-// {
-//   "id": 4,
-//   "username": "p4dm3",
-//   "points": 1000,
-//   "profiles": [
-//     {
-//       "id": 6,
-//       "name": "queen",
-//       "User_Profile": {
-//         "userId": 4,
-//         "profileId": 6,
-//         "selfGranted": false
-//       }
-//     }
-//   ]
-// }
 
 router.put("/update/:id", async (req, res, next) => {
   try {

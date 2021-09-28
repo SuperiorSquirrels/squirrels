@@ -110,7 +110,7 @@ const Navbar = ({ handleClick, isLoggedIn, userId }) => {
             <a href="#" onClick={handleClick}>
               Logout
             </a>
-            <Link style={{ margin: ".5rem" }}>Cart</Link>
+            <Link to={`/${cartUrl}`} style={{ margin: ".5rem" }}>Cart</Link>
           </div>
         </div>
           // <div>
@@ -144,7 +144,7 @@ const Navbar = ({ handleClick, isLoggedIn, userId }) => {
               <Link to="/signup" style={{ margin: ".5rem" }}>
                 Sign up
               </Link>
-              <Link to={`/${cartUrl}`} style={{ margin: ".5rem" }}>Cart</Link>
+              <Link to='/cart' style={{ margin: ".5rem" }}>Cart</Link>
             </div>
           </div>
         )}
