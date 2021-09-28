@@ -20,7 +20,9 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+
 router.post("/", async (req, res, next) => {
+
   try {
     const newOrder = await Order.create({ userId: req.body.userId});
 
@@ -42,14 +44,13 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-
 router.put("/update/:id", async (req, res, next) => {
   try {
     // we need to get the whole information of the user's active order
     const activeOrderDetails = await Order.findAll({
       where: {
         userId: req.params.id,
-        isCart: true
+        isCart: true,
       },
       include: Product
     })
@@ -65,16 +66,30 @@ router.put("/update/:id", async (req, res, next) => {
     const wholeNewUpdate = await Order.findAll({
       where: {
         userId: req.params.id,
-        isCart: true
+        isCart: true,
       },
-      include: Product
-    })
+      include: Product,
+    });
 
-    res.json(wholeNewUpdate)
+    res.json(wholeNewUpdate);
   } catch (err) {
     next(err);
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const product = await Order_Products.findAll({
+      where: {
+        productId: req.body.productId,
+        orderId: req.body.orderId,
+      },
+    });
+    await product.destory();
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
