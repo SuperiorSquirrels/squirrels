@@ -66,45 +66,6 @@ const usersDummyData = [
   },
 ]
 
-
-const orderDummyData = [
-  {
-    userId: 1,
-    isCart: true
-  },
-  {
-    userId: 2,
-    isCart: true
-  },
-]
-
-const orderDetailDummyData = [
-  {
-    orderId: 1,
-    productId: 4,
-    singleProductTotalQuantity: 2,
-    singleProductTotalPrice: 50
-  },
-  {
-    orderId: 1,
-    productId: 7,
-    singleProductTotalQuantity: 3,
-    singleProductTotalPrice: 30
-  },
-  {
-    orderId: 2,
-    productId: 5,
-    singleProductTotalQuantity: 1,
-    singleProductTotalPrice: 10
-  },
-  {
-    orderId: 2,
-    productId: 3,
-    singleProductTotalQuantity: 3,
-    singleProductTotalPrice: 20
-  },
-]
-
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -118,11 +79,7 @@ async function seed() {
 
   const users = await Promise.all(usersDummyData.map(user => User.create(user)))
 
-  const orders = await Promise.all(orderDummyData.map(order => Order.create(order)))
-
-  const orderDetails = await Promise.all(orderDetailDummyData.map(orderDetail => Order_Products.create(orderDetail)))
-
-  console.log(`seeded ${productions.length}  products, ${users.length} users, ${orders.length} orders, ${orderDetails.length} orderDetails`)
+  console.log(`seeded ${productions.length}  products, ${users.length} users`)
   console.log(`seeded successfully`)
   // return {
   //   users: {
