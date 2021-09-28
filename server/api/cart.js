@@ -21,46 +21,23 @@ router.get("/:id", async (req, res, next) => {
 });
 
 
-router.post("/:id", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const dummy = {
-      isCart: true,
-      userId: 2,
-      products: [
-        {
-          id: 7,
-          name: "plush dog agian",
-          price: 40,
-          stock: 4,
-          animalType: "dog",
-          description: "Details information come soon...",
-          color: "Details information come soon...",
-          imageUrl:
-            "https://cdn.dribbble.com/users/1044993/screenshots/12436018/media/4af5b5c62eba141322e11e2747a1d9fd.png?compress=1&resize=1600x1200",
-          order_products: {
-            singleProductTotalPrice: 30,
-            singleProductTotalQuantity: 3,
-            productId: 7,
-            orderId: 3,
-          },
-        },
-      ],
-    };
+    const newOrder = await Order.create({ userId: req.body.userId});
 
-    const somethingElse = await Order.create({
-      userId: dummy.userId,
-      isCart: dummy.isCart,
+    const orderDetail = req.body.orderDetail;
+    orderDetail.orderId = newOrder.id
+
+    await Order_Products.create(orderDetail);
+
+    const activeOrderDetails = await Order.findAll({
+      where: {
+        userId: req.body.userId,
+        isCart: true,
+      },
+      include: Product,
     });
-
-    // const products = await Order.create(dummy.products[0]);
-    const products = await Order_Products.create({
-      singleProductTotalPrice: 30,
-      singleProductTotalQuantity: 3,
-      productId: 7,
-      orderId: 3,
-    });
-
-    res.json(products);
+    res.json(activeOrderDetails);
   } catch (error) {
     next(error);
   }
