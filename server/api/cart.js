@@ -20,7 +20,9 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+
 router.post("/", async (req, res, next) => {
+
   try {
     const newOrder = await Order.create({ userId: req.body.userId});
 
@@ -42,38 +44,44 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-
 router.put("/update/:id", async (req, res, next) => {
   try {
     // we need to get the whole information of the user's active order
     const activeOrderDetails = await Order.findAll({
       where: {
         userId: req.params.id,
-        isCart: true
+        isCart: true,
       },
-      include: Product
-    })
-
-    const orderDetail = req.body.orderDetail;
-    orderDetail.orderId = activeOrderDetails[0].id
-
-    // if we want to edit the quantity we need to check if the productId is an id is already in use.
-    // Then we use update method.
-    await Order_Products.create(orderDetail);
+      include: Product,
+    });
 
     const wholeNewUpdate = await Order.findAll({
       where: {
         userId: req.params.id,
-        isCart: true
+        isCart: true,
       },
-      include: Product
-    })
+      include: Product,
+    });
 
-    res.json(wholeNewUpdate)
+    res.json(wholeNewUpdate);
   } catch (err) {
     next(err);
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const product = await Order_Products.findAll({
+      where: {
+        productId: req.body.productId,
+        orderId: req.body.orderId,
+      },
+    });
+    await product.destory();
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
