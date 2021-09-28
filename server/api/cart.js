@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { Order, Product },
 } = require("../db");
+const Order_Products = require("../db/models/OrderProducts");
 
 router.get("/:id", async (req, res, next) => {
   try {
@@ -20,6 +21,7 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/update/:id", async (req, res, next) => {
   try {
+    // we need to get the whole information of the user's active order
     const activeOrderDetails = await Order.findAll({
       where: {
         userId: req.params.id,
@@ -28,47 +30,50 @@ router.put("/update/:id", async (req, res, next) => {
       include: Product
     })
 
-    const dummyBody = {
-      id: 1,
-      isCart: true,
-      createdAt: "2021-09-27T20:44:22.262Z",
-      updatedAt: "2021-09-27T20:44:22.262Z",
-      userId: 2,
+    // when we have a real frontEnd we will only use some parts of the request instead of the dummy data.
+    const dummyOrder = {
       products: [
         {
-          id: 7,
-          name: "plush dog agian",
-          price: 40,
-          stock: 4,
-          animalType: "dog",
-          description: "Details information come soon...",
-          color: "Details information come soon...",
-          imageUrl: "https://cdn.dribbble.com/users/1044993/screenshots/12436018/media/4af5b5c62eba141322e11e2747a1d9fd.png?compress=1&resize=1600x1200",
-          createdAt: "2021-09-27T20:44:21.952Z",
-          updatedAt: "2021-09-27T20:44:21.952Z",
           order_products: {
-            singleProductTotalPrice: 120,
-            singleProductTotalQuantity: 3,
-            createdAt: "2021-09-27T20:44:22.311Z",
-            updatedAt: "2021-09-27T20:44:22.311Z",
+            singleProductTotalPrice: 80,
+            singleProductTotalQuantity: 2,
             productId: 7,
             orderId: 1
           }
         }
       ]
     }
+    const dummyOrderProducts = {
+      singleProductTotalPrice: 80,
+      singleProductTotalQuantity: 2,
+      productId: 7,
+      orderId: 1
+    }
 
-    // const dummyBody = {
-    //   id: 8,
-    //   name: "plush cat agian",
-    //   price: 10,
-    //   singleProductTotalPrice: 120,
-    //   singleProductTotalQuantity: 3,
-    // }
+    // we need to filter to extract the correct product by productId
+    const productIdShouldBeUpdate = activeOrderDetails[0].products.filter(product => product.id === dummyOrder.products[0].order_products.productId)[0]
 
-    // once we finished the frontEnd, we need to use req.body instead of below dummyBody as the parameter of the update function.
-    const updateOrder = await activeOrderDetails[0].update(dummyBody)
-    res.send(updateOrder)
+    // create the Order_Products table's instance that we can update
+    const orderProducts = await Order_Products.findAll({
+      where: {
+        orderId: activeOrderDetails[0].id,
+        productId: productIdShouldBeUpdate.id
+      }
+    })
+
+    // once we finished the frontEnd, we need to use part of req.body instead of below dummy data as the parameter of the update functions.
+    await activeOrderDetails[0].update(dummyOrder)
+    await orderProducts[0].update(dummyOrderProducts);
+
+    const wholeNewUpdate = await Order.findAll({
+      where: {
+        userId: req.params.id,
+        isCart: true
+      },
+      include: Product
+    })
+
+    res.json(wholeNewUpdate)
   } catch (err) {
     next(err);
   }
