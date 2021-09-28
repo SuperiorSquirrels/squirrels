@@ -62,9 +62,7 @@ export const addToCartThunk = (id, item) => {
         dispatch(newCart(createNewCart[0].products));
       } else {
         const { data: editCart } = await axios.put(`/api/cart/update/${id}`, item);
-        console.log('..........addToCartResponse', editCart)
-
-        dispatch(addToCart(editCart));
+        dispatch(addToCart(editCart[0].products));
       }
     } catch (error) {
       console.log(error)
@@ -82,9 +80,9 @@ const cartReducer = (state = initialState, action) => {
     case GET_USER_CART:
       return action.cart
     case NEW_CART:
-      return action.cart
-    case ADD_TO_CART:
       return [...state, ...action.cart];
+    case ADD_TO_CART:
+      return action.cart
     default:
       return state
   }

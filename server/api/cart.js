@@ -20,7 +20,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-
 router.post("/", async (req, res, next) => {
   try {
     const newOrder = await Order.create({ userId: req.body.userId});
@@ -55,40 +54,12 @@ router.put("/update/:id", async (req, res, next) => {
       include: Product
     })
 
-    // when we have a real frontEnd we will only use some parts of the request instead of the dummy data.
-    const dummyOrder = {
-      products: [
-        {
-          order_products: {
-            singleProductTotalPrice: 80,
-            singleProductTotalQuantity: 2,
-            productId: 7,
-            orderId: 1
-          }
-        }
-      ]
-    }
-    const dummyOrderProducts = {
-      singleProductTotalPrice: 80,
-      singleProductTotalQuantity: 2,
-      productId: 7,
-      orderId: 1
-    }
+    const orderDetail = req.body.orderDetail;
+    orderDetail.orderId = activeOrderDetails[0].id
 
-    // we need to filter to extract the correct product by productId
-    const productIdShouldBeUpdate = activeOrderDetails[0].products.filter(product => product.id === dummyOrder.products[0].order_products.productId)[0]
-
-    // create the Order_Products table's instance that we can update
-    const orderProducts = await Order_Products.findAll({
-      where: {
-        orderId: activeOrderDetails[0].id,
-        productId: productIdShouldBeUpdate.id
-      }
-    })
-
-    // once we finished the frontEnd, we need to use part of req.body instead of below dummy data as the parameter of the update functions.
-    await activeOrderDetails[0].update(dummyOrder)
-    await orderProducts[0].update(dummyOrderProducts);
+    // if we want to edit the quantity we need to check if the productId is an id is already in use.
+    // Then we use update method.
+    await Order_Products.create(orderDetail);
 
     const wholeNewUpdate = await Order.findAll({
       where: {
