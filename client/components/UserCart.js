@@ -4,6 +4,7 @@ import {
   getUserCartThunk,
   checkoutThunk,
   deleteUserCartThunk,
+  addToCartThunk
 } from "../store/cart";
 import { connect } from "react-redux";
 
@@ -44,7 +45,7 @@ class UserCart extends React.Component {
     } catch (err) {
       console.log('🧤 err', err);
   }
-    
+}
   handleClick(productId) {
     const userId = Number(this.props.match.params.id);
     this.props.deleteCartItem(userId, productId);
@@ -57,7 +58,7 @@ class UserCart extends React.Component {
     const userId = Number(this.props.match.params.id);
     this.props.checkout(userId);
   }
-    
+
   render() {
     const cart = this.props.cart
     console.log('🧤 cart in component', cart);
@@ -77,7 +78,14 @@ class UserCart extends React.Component {
         return accum + cartItem.order_products.singleProductTotalPrice
       }, 0)
     }
-
+    if(this.state.checkout){
+      return (
+       <div>
+          <h1>Thank you for your purchase!</h1>
+          <Link to='/products'>Continue shopping</Link>
+        </div>
+      )
+    }
     return (
       <div>
           <h1>Your cart items</h1>
@@ -152,7 +160,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   getUserCart:(userId) => dispatch(getUserCartThunk(userId)),
-  addToCart: (id, item) => dispatch(addToCartThunk(id, item))
+  addToCart: (id, item) => dispatch(addToCartThunk(id, item)),
   deleteCartItem: (userId, product) =>
     dispatch(deleteUserCartThunk(userId, product)),
   checkout: (userId) => dispatch(checkoutThunk(userId)),
