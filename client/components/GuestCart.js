@@ -11,6 +11,7 @@ class UserCart extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.removeItem = this.removeItem.bind(this)
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class UserCart extends React.Component {
 
   handleClick (item) {
     const userId = Number(this.props.match.params.id)
-    this.props.deleteCartItem(userId, item)
+    //this.props.deleteCartItem(userId, item)
   }
 
   handleSubmit() {
@@ -34,6 +35,11 @@ class UserCart extends React.Component {
     });
     // const userId = Number(this.props.match.params.id);
     // this.props.checkout(userId);
+  }
+  removeItem(productId){
+    let storageCart = JSON.parse(window.localStorage.getItem('cart'));
+    let cart = storageCart.filter(product => product.productId !== productId);
+    window.localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   render() {
@@ -84,7 +90,7 @@ class UserCart extends React.Component {
                   <p style={{marginTop:'1px'}}>Product single price: {`$${cartItem.productSinglePrice}`}</p>
                   <p style={{marginBottom:'-0.5rem'}, {marginTop:'-0.5rem'}}>Quantity: {cartItem.singleProductTotalQuantity}</p>
                   <p style={{marginBottom:'-0.5rem'}, {marginTop:'-0.5rem'}}>Total price: {`$${cartItem.singleProductTotalPrice}`}</p>
-                  <button style={{marginBottom: '1px'}, {marginTop:'-0.5rem'}, {marginLeft:'50rem'}} onClick={() => this.handleClick(cartItem.id)}>Delete</button>
+                  <button style={{marginBottom: '1px'}, {marginTop:'-0.5rem'}, {marginLeft:'50rem'}} onClick={() => this.removeItem(cartItem.productId)}>Delete</button>
                  </div>
                </div>
               );
