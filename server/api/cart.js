@@ -83,7 +83,7 @@ router.put("/checkout/:id", async (req, res, next) => {
       },
     });
     currentCart.isCart = false;
-    const updatedCart = await currentCart.update(currentCart);
+    const updatedCart = await currentCart[0].update(currentCart);
     res.json(updatedCart);
   } catch (error) {
     next(error);

@@ -45,15 +45,15 @@ const checkout = (cart) => {
 // Thunks
 
 export const getUserCartThunk = (id) => {
-  console.log("🧤 id", id);
-
   return async (dispatch) => {
     try {
       const { data: cart } = await axios.get(`/api/cart/${id}`);
-      console.log("🧤 cart", cart);
-
-      const cartDetail = cart[0].products;
-      dispatch(getUserCart(cartDetail));
+      if (cart.length) {
+        const cartDetail = cart[0].products;
+        dispatch(getUserCart(cartDetail));
+      } else {
+        dispatch(getUserCart(cart));
+      }
     } catch (err) {
       console.log("🧤 getUserCart - err", err);
     }
@@ -83,7 +83,7 @@ export const addToCartThunk = (id, item) => {
 export const checkoutThunk = (id) => {
   return async (dispatch) => {
     try {
-      const { data: cart } = await axios.put(`/api/checkout/${id}`);
+      const { data: cart } = await axios.put(`/api/cart/checkout/${id}`);
       dispatch(checkout(cart));
     } catch (error) {
       console.log(error);

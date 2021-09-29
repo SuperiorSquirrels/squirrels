@@ -30,24 +30,21 @@ class UserCart extends React.Component {
 
   render() {
     const cart = this.props.cart;
-    console.log("🧤 cart in component", cart);
     let totalPrice = "";
     if (!cart.length) {
       return (
         <div>
-          <div>You have not found any new friends yet!</div>
+          <h1>You have not found any new friends yet!</h1>
           <Link to="/products">
             Go back and find some new friends! (they can't wait!)
           </Link>
         </div>
       );
     } else {
-      console.log();
       totalPrice = cart.reduce((accum, cartItem) => {
         return accum + cartItem.order_products.singleProductTotalPrice;
       }, 0);
     }
-
     if (this.state.checkout) {
       return (
         <div>
