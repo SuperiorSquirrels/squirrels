@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { filter } = require("compression");
 const {
   models: { Order, Product, Order_Products },
 } = require("../db");
@@ -43,7 +44,6 @@ router.post("/", async (req, res, next) => {
 
 router.put("/update/:id", async (req, res, next) => {
   try {
-    // we need to get the whole information of the user's active order
     const activeOrderDetails = await Order.findAll({
       where: {
         userId: req.params.id,
@@ -51,14 +51,32 @@ router.put("/update/:id", async (req, res, next) => {
       },
       include: Product,
     });
+    const products = activeOrderDetails[0].products;
+    const newProduct = req.body.orderDetail;
+    newProduct.orderId = activeOrderDetails[0].id;
+    const oldProduct = products.filter((product) => {
+      if (product.id === newProduct.productId) {
+        return product;
+      }
+    });
+    if (oldProduct.length) {
+      const productNeedsUpdate = await Order_Products.findAll({
+        where: {
+          orderId: newProduct.orderId,
+          productId: newProduct.productId,
+        },
+      });
+      newProduct.singleProductTotalQuantity +=
+        productNeedsUpdate[0].singleProductTotalQuantity;
 
-    // newBranch should include below code
-    const orderDetail = req.body.orderDetail;
-    orderDetail.orderId = activeOrderDetails[0].id;
-
+      newProduct.singleProductTotalPrice +=
+        productNeedsUpdate[0].singleProductTotalPrice;
+      await productNeedsUpdate[0].update(newProduct);
+    } else {
+      await Order_Products.create(newProduct);
+    }
     // if we want to edit the quantity we need to check if the productId is an id is already in use.
     // Then we use update method.
-    await Order_Products.create(orderDetail);
 
     const wholeNewUpdate = await Order.findAll({
       where: {
@@ -84,6 +102,7 @@ router.put("/checkout/:id", async (req, res, next) => {
     });
     currentCart.isCart = false;
     const updatedCart = await currentCart[0].update(currentCart);
+
     res.json(updatedCart);
   } catch (error) {
     next(error);
@@ -91,8 +110,6 @@ router.put("/checkout/:id", async (req, res, next) => {
 });
 
 router.delete("/:id/:productId", async (req, res, next) => {
-  console.log("------->", req.params.id);
-  console.log("----->", req.params.productId);
   try {
     const order = await Order.findOne({
       where: { userId: req.params.id, isCart: true },
