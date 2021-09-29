@@ -34,8 +34,29 @@ class SingleProduct extends React.Component {
         singleProductTotalPrice: Number(this.state.selectQty) * this.props.product.price
       }
     }
+    let products = []
+    if (this.props.userId === undefined) {
+      const guestCart = window.localStorage.getItem('cart')
+      let itemDetails = {
+        productId: this.props.product.id,
+        productName: this.props.product.name,
+        productSinglePrice: this.props.product.price,
+        singleProductTotalQuantity: Number(this.state.selectQty),
+        singleProductTotalPrice: Number(this.state.selectQty) * this.props.product.price,
+        imageUrl: this.props.product.imageUrl
+      }
+      if(guestCart){
+        products = JSON.parse(guestCart)
+       }
+      products.push(itemDetails)
+      window.localStorage.setItem(
+          'cart', JSON.stringify(products)
+        )
+      } else {
     this.props.addToCart(this.props.userId, item)
+
   }
+}
 
   render() {
     const product = this.props.product;

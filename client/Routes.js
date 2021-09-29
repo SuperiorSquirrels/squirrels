@@ -8,9 +8,10 @@ import Home from "./components/Home";
 //import Signup from "./components/Signup";
 import SingleProduct from "./components/SingleProduct";
 import NotFound from "./components/NotFound";
+
 import {me} from "./store"
 import UserCart from "./components/UserCart";
-import GuestCart from "./components/GuestCart";
+import GuestCart from "./components/GuestCart"
 
 /**
  * COMPONENT
