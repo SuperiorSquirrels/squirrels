@@ -87,6 +87,56 @@ export const addToCartThunk = (id, item) => {
   };
 };
 
+export const guestToLoginCartThunk = (id, localCart) => {
+  return async (dispatch) => {
+    try {
+      const { data: cart } = await axios.get(`/api/cart/${id}`);
+      if (!cart.length || !cart[0].isCart) {
+        let itemToAdd = {
+          userId: id,
+          orderDetail: {
+            productId: localCart[0].productId,
+            singleProductTotalQuantity: localCart[0].singleProductTotalQuantity,
+            singleProductTotalPrice: localCart[0].singleProductTotalPrice
+          }
+        }
+        const { data: createNewCart } = await axios.post(`/api/cart`, itemToAdd);
+        dispatch(newCart(createNewCart[0].products));
+
+        for (let i=1; i < localCart.length; i++) {
+          let itemToAdd = {
+            userId: id,
+            orderDetail: {
+              productId: localCart[i].productId,
+              singleProductTotalQuantity: localCart[i].singleProductTotalQuantity,
+              singleProductTotalPrice: localCart[i].singleProductTotalPrice
+            }
+          }
+          const { data: editCart} = await axios.put(`/api/cart/update/${id}`, itemToAdd)
+          dispatch(addToCart(editCart[0].products));
+        }
+
+      } else {
+        for (let i=0; i < localCart.length; i++) {
+          let itemToAdd = {
+            userId: id,
+            orderDetail: {
+              productId: localCart[i].productId,
+              singleProductTotalQuantity: localCart[i].singleProductTotalQuantity,
+              singleProductTotalPrice: localCart[i].singleProductTotalPrice
+            }
+          }
+          const { data: editCart} = await axios.put(`/api/cart/update/${id}`, itemToAdd)
+          dispatch(addToCart(editCart[0].products));
+        }
+
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export const deleteUserCartThunk = (userId, productId) => {
   return async (dispatch) => {
     try {
@@ -125,7 +175,6 @@ const cartReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return action.cart;
     case DELETE_FROM_CART:
-      console.log("state ------>", state);
       return state.filter((product) => {
         if (product.order_products.productId !== action.productId) {
           return product;
