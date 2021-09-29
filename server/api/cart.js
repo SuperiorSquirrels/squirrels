@@ -92,6 +92,7 @@ router.put("/checkout/:id", async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
+    console.log('......req.body', req.body)
     const product = await Order_Products.findAll({
       where: {
         productId: req.body.productId,

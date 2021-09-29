@@ -8,9 +8,9 @@ import Home from "./components/Home";
 //import Signup from "./components/Signup";
 import SingleProduct from "./components/SingleProduct";
 import NotFound from "./components/NotFound";
-
 import {me} from "./store"
 import UserCart from "./components/UserCart";
+import GuestCart from "./components/GuestCart";
 
 /**
  * COMPONENT
@@ -44,7 +44,7 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
-            {/* <Route exact path="/cart" component={Cart} /> */}
+            <Route exact path="/cart" component={GuestCart} />
             <Route exact path="/products/:id(\d+)" component={SingleProduct} />
             <Route>
              <NotFound />
