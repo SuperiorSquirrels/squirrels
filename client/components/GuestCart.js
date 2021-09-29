@@ -1,14 +1,18 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import {getUserCartThunk, checkoutThunk, deleteUserCartThunk} from '../store/cart';
-import {connect} from 'react-redux';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  getUserCartThunk,
+  checkoutThunk,
+  deleteUserCartThunk,
+} from "../store/cart";
+import { connect } from "react-redux";
 
-class UserCart extends React.Component {
+class GuestCart extends React.Component {
   constructor() {
     super();
     this.state = {
       checkout: false,
-    }
+    };
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -17,15 +21,14 @@ class UserCart extends React.Component {
     try {
       // const userId = Number(this.props.match.params.id);
       // this.props.getUserCart(userId);
-
     } catch (err) {
       console.log("🧤 err", err);
     }
   }
 
-  handleClick (item) {
-    const userId = Number(this.props.match.params.id)
-    this.props.deleteCartItem(userId, item)
+  handleClick(item) {
+    const userId = Number(this.props.match.params.id);
+    this.props.deleteCartItem(userId, item);
   }
 
   handleSubmit() {
@@ -39,7 +42,7 @@ class UserCart extends React.Component {
   render() {
     let cart = [];
     let totalPrice = "";
-    if (!window.localStorage.getItem('cart')) {
+    if (!window.localStorage.getItem("cart")) {
       return (
         <div>
           <h1>You have not found any new friends yet!</h1>
@@ -49,20 +52,20 @@ class UserCart extends React.Component {
         </div>
       );
     }
-      if (this.state.checkout) {
+    if (this.state.checkout) {
       return (
         <div>
           <div>
             {" "}
             <h1>We appreciate your interest in our business!</h1>
-                <h3>Before checking out please sign up</h3>
-              <Link to='/signup'>Signup</Link>
+            <h3>Before checking out please sign up</h3>
+            <Link to="/signup">Signup</Link>
           </div>
         </div>
       );
-      } else {
-        cart = JSON.parse(window.localStorage.getItem('cart'))
-        console.log('🧤 cart', cart);
+    } else {
+      cart = JSON.parse(window.localStorage.getItem("cart"));
+      console.log("🧤 cart", cart);
 
       totalPrice = cart.reduce((accum, cartItem) => {
         return accum + cartItem.singleProductTotalPrice;
@@ -73,22 +76,55 @@ class UserCart extends React.Component {
           <h1>Your cart items</h1>
           <div>
             <ul>
-            {cart.map(cartItem => {
-            return (
-              <div className='cart-display' key={cartItem.productId}>
-                <div >
-                  <img style={{width:'100px'}, {height:'80px'}} src={cartItem.imageUrl}/>
-                </div>
-                <div className='cart-item'>
-                  <p style={{margin:'0.5px'}, {marginBottom: '.5px'}}>Product name: {cartItem.productName}</p>
-                  <p style={{marginTop:'1px'}}>Product single price: {`$${cartItem.productSinglePrice}`}</p>
-                  <p style={{marginBottom:'-0.5rem'}, {marginTop:'-0.5rem'}}>Quantity: {cartItem.singleProductTotalQuantity}</p>
-                  <p style={{marginBottom:'-0.5rem'}, {marginTop:'-0.5rem'}}>Total price: {`$${cartItem.singleProductTotalPrice}`}</p>
-                  <button style={{marginBottom: '1px'}, {marginTop:'-0.5rem'}, {marginLeft:'50rem'}} onClick={() => this.handleClick(cartItem.id)}>Delete</button>
-                 </div>
-               </div>
-              );
-             })}
+              {cart.map((cartItem) => {
+                return (
+                  <div className="cart-display" key={cartItem.productId}>
+                    <div>
+                      <img
+                        style={({ width: "100px" }, { height: "80px" })}
+                        src={cartItem.imageUrl}
+                      />
+                    </div>
+                    <div className="cart-item">
+                      <p
+                        style={({ margin: "0.5px" }, { marginBottom: ".5px" })}
+                      >
+                        Product name: {cartItem.productName}
+                      </p>
+                      <p style={{ marginTop: "1px" }}>
+                        Product single price:{" "}
+                        {`$${cartItem.productSinglePrice}`}
+                      </p>
+                      <p
+                        style={
+                          ({ marginBottom: "-0.5rem" },
+                          { marginTop: "-0.5rem" })
+                        }
+                      >
+                        Quantity: {cartItem.singleProductTotalQuantity}
+                      </p>
+                      <p
+                        style={
+                          ({ marginBottom: "-0.5rem" },
+                          { marginTop: "-0.5rem" })
+                        }
+                      >
+                        Total price: {`$${cartItem.singleProductTotalPrice}`}
+                      </p>
+                      <button
+                        style={
+                          ({ marginBottom: "1px" },
+                          { marginTop: "-0.5rem" },
+                          { marginLeft: "50rem" })
+                        }
+                        onClick={() => this.handleClick(cartItem.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </ul>
           </div>
           <Link to="/home"> Continue to shop </Link>
@@ -110,6 +146,6 @@ class UserCart extends React.Component {
 //   checkout: (userId) => dispatch(checkoutThunk(userId)),
 // })
 
-export default UserCart
+export default GuestCart;
 
 // connect(mapState, mapDispatch)(
