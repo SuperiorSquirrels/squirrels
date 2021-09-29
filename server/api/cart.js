@@ -3,7 +3,6 @@ const {
   models: { Order, Product, Order_Products },
 } = require("../db");
 
-
 router.get("/:id", async (req, res, next) => {
   try {
     const activeOrderDetails = await Order.findAll({
@@ -20,14 +19,12 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-
 router.post("/", async (req, res, next) => {
-
   try {
-    const newOrder = await Order.create({ userId: req.body.userId});
+    const newOrder = await Order.create({ userId: req.body.userId });
 
     const orderDetail = req.body.orderDetail;
-    orderDetail.orderId = newOrder.id
+    orderDetail.orderId = newOrder.id;
 
     await Order_Products.create(orderDetail);
 
@@ -52,12 +49,12 @@ router.put("/update/:id", async (req, res, next) => {
         userId: req.params.id,
         isCart: true,
       },
-      include: Product
-    })
+      include: Product,
+    });
 
     // newBranch should include below code
     const orderDetail = req.body.orderDetail;
-    orderDetail.orderId = activeOrderDetails[0].id
+    orderDetail.orderId = activeOrderDetails[0].id;
 
     // if we want to edit the quantity we need to check if the productId is an id is already in use.
     // Then we use update method.
@@ -74,6 +71,22 @@ router.put("/update/:id", async (req, res, next) => {
     res.json(wholeNewUpdate);
   } catch (err) {
     next(err);
+  }
+});
+
+router.put("/checkout/:id", async (req, res, next) => {
+  try {
+    const currentCart = await Order.findAll({
+      where: {
+        userId: req.params.id,
+        isCart: true,
+      },
+    });
+    currentCart.isCart = false;
+    const updatedCart = await currentCart.update(currentCart);
+    res.json(updatedCart);
+  } catch (error) {
+    next(error);
   }
 });
 
