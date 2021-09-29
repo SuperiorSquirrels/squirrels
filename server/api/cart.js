@@ -90,12 +90,17 @@ router.put("/checkout/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id/:productId", async (req, res, next) => {
+  console.log("------->", req.params.id);
+  console.log("----->", req.params.productId);
   try {
+    const order = await Order.findOne({
+      where: { userId: req.params.id, isCart: true },
+    });
     const product = await Order_Products.findAll({
       where: {
-        productId: req.body.productId,
-        orderId: req.body.orderId,
+        productId: req.params.productId,
+        orderId: order.id,
       },
     });
     await product[0].destroy();
