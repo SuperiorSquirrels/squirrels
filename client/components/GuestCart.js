@@ -113,5 +113,3 @@ class UserCart extends React.Component {
 export default UserCart
 
 // connect(mapState, mapDispatch)(
-
-

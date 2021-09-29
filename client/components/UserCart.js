@@ -4,7 +4,8 @@ import {
   getUserCartThunk,
   checkoutThunk,
   deleteUserCartThunk,
-  addToCartThunk
+  addToCartThunk,
+  guestToLoginCartThunk
 } from "../store/cart";
 import { connect } from "react-redux";
 
@@ -20,32 +21,18 @@ class UserCart extends React.Component {
   }
 
   componentDidMount () {
-  try {
-      const userId = Number(this.props.match.params.id)
-      this.props.getUserCart(userId)
-      if(window.localStorage.getItem('cart')){
+    const userId = Number(this.props.match.params.id)
+    this.props.getUserCart(userId);
+    if(window.localStorage.getItem('cart')){
 
-        const localCart = JSON.parse(window.localStorage.getItem('cart'))
-        console.log('🧤 localCart', localCart);
+      const localCart = JSON.parse(window.localStorage.getItem('cart'))
 
-       localCart.map(item => {
-             let itemToAdd = {userId: userId, orderDetail: {
-              productId: item.productId,
-              singleProductTotalQuantity: item.singleProductTotalQuantity,
-              singleProductTotalPrice: item.singleProductTotalPrice
-            }}
-            console.log('🧤 itemToAdd', itemToAdd);
+      this.props.guestToLoginCart(userId, localCart)
 
-          this.props.addToCart(userId, itemToAdd)
-          return
-        })
-
-        window.localStorage.removeItem('cart');
-      }
-    } catch (err) {
-      console.log('🧤 err', err);
+      window.localStorage.removeItem('cart');
+    }
   }
-}
+
   handleClick(productId) {
     const userId = Number(this.props.match.params.id);
     this.props.deleteCartItem(userId, productId);
@@ -63,7 +50,6 @@ class UserCart extends React.Component {
     const cart = this.props.cart
     console.log('🧤 cart in component', cart);
     let totalPrice = '';
-
     if (!cart.length) {
       return (
         <div>
@@ -164,6 +150,7 @@ const mapDispatch = (dispatch) => ({
   deleteCartItem: (userId, product) =>
     dispatch(deleteUserCartThunk(userId, product)),
   checkout: (userId) => dispatch(checkoutThunk(userId)),
+  guestToLoginCart: (id, item) => dispatch(guestToLoginCartThunk(id, item))
 });
 
 export default connect(mapState, mapDispatch)(UserCart)
