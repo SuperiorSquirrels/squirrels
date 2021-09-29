@@ -42,7 +42,8 @@ class SingleProduct extends React.Component {
         productName: this.props.product.name,
         productSinglePrice: this.props.product.price,
         singleProductTotalQuantity: Number(this.state.selectQty),
-        singleProductTotalPrice: Number(this.state.selectQty) * this.props.product.price
+        singleProductTotalPrice: Number(this.state.selectQty) * this.props.product.price,
+        imageUrl: this.props.product.imageUrl
       }
       if(guestCart){
         products = JSON.parse(guestCart)

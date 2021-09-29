@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { authenticationThunk } from "../store/createUser";
 import { Link } from "react-router-dom";
+import { me } from "../store";
 
 class Signup extends React.Component {
   constructor() {
@@ -46,6 +47,7 @@ class Signup extends React.Component {
   }
 
   render() {
+
     const { error } = this.props;
     let errorName;
     if (
@@ -65,7 +67,7 @@ class Signup extends React.Component {
 
     if (this.props.token) {
       return (
-        <div>
+       <div>
           <div>Your acount was created!</div>
           <Link to="/products">Return to find your new best friend!</Link>
         </div>
@@ -142,7 +144,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (user) => dispatch(authenticationThunk(user)),
+  createUser: (user) => dispatch(authenticationThunk(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
