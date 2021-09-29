@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
-import {getUserCartThunk} from '../store/cart'
-import {connect} from 'react-redux'
+import {Link} from 'react-router-dom';
+import {getUserCartThunk, deleteUserCartThunk} from '../store/cart';
+import {connect} from 'react-redux';
 
 class UserCart extends React.Component {
   constructor() {
@@ -10,11 +10,14 @@ class UserCart extends React.Component {
       quantity: '',
       totalPrice: ''
     }
+    this.handleClick = this.handleClick.bind(this)
   }
+  handleClick (item) {
+    const userId = Number(this.props.match.params.id)
+    this.props.deleteCartItem(userId, item)
+  }
+
   componentDidMount () {
-
-
-
     try {
       const userId = Number(this.props.match.params.id)
       this.props.getUserCart(userId)
@@ -62,7 +65,7 @@ class UserCart extends React.Component {
               <p style={{marginTop:'1px'}}>Product single price: {`$${cartItem.price}`}</p>
               <p style={{marginBottom:'-0.5rem'}, {marginTop:'-0.5rem'}}>Quantity: {cartItem.order_products.singleProductTotalQuantity}</p>
               {/* <p style={{marginBottom:'-0.5rem'}, {marginTop:'-0.5rem'}}>Total price: {`$${cartItem.order_products.singleProductTotalPrice}`}</p> */}
-              <button style={{marginBottom: '1px'}, {marginTop:'-0.5rem'}, {marginLeft:'50rem'}}>Delete</button>
+              <button style={{marginBottom: '1px'}, {marginTop:'-0.5rem'}, {marginLeft:'50rem'}} onClick={() => this.handleClick(cartItem)}>Delete</button>
             </div>
             </div>
             )
@@ -81,7 +84,8 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  getUserCart:(userId) => dispatch(getUserCartThunk(userId))
+  getUserCart:(userId) => dispatch(getUserCartThunk(userId)),
+  deleteCartItem:(userId, product) => dispatch(deleteUserCartThunk(userId, product))
 })
 
 export default connect(mapState, mapDispatch)(UserCart)

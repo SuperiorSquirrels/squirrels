@@ -85,7 +85,7 @@ router.delete("/:id", async (req, res, next) => {
         orderId: req.body.orderId,
       },
     });
-    await product.destory();
+    await product[0].destroy();
     res.json(product);
   } catch (error) {
     next(error);

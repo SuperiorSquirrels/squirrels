@@ -27,7 +27,7 @@ class NotFound extends React.Component {
     const randomNumGen = () =>{
       return Math.floor(Math.random() * products.length)
     }
-    while(uniqueRandoms.length < 3){
+    while(uniqueRandoms.length < 4){
       let newIdx = randomNumGen()
       if (uniqueRandoms.indexOf(newIdx) === -1){
         uniqueRandoms.push(newIdx)
