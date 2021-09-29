@@ -10,7 +10,7 @@ const CHECKOUT = "CHECKOUT";
 
 // const UPDATE_CART = 'UPDATE_CART'
 
-const DELETE_FROM_CART = "DELETE_FROM_CART"
+const DELETE_FROM_CART = "DELETE_FROM_CART";
 
 // Action creators
 
@@ -35,13 +35,12 @@ const addToCart = (cart) => {
   };
 };
 
-const deleteToCart = (cart, orderId) => {
+const deleteToCart = (productId) => {
   return {
     type: DELETE_FROM_CART,
-    cart,
-    orderId
-  }
-}
+    productId,
+  };
+};
 
 const checkout = (cart) => {
   return {
@@ -88,23 +87,19 @@ export const addToCartThunk = (id, item) => {
   };
 };
 
-export const deleteUserCartThunk = (id, orderId) => {
-  console.log('🧤 id', id);
-  console.log('🧤 orderId', orderId);
-
-
+export const deleteUserCartThunk = (userId, productId) => {
   return async (dispatch) => {
     try {
-      const {data: cart} = await axios.delete(`/api/cart/${id}`, orderId)
-      console.log('🧤 cart', cart);
-
-      const cartDetail = cart[0].products
-      dispatch(deleteToCart(cartDetail, orderId.id))
+      const { data: cart } = await axios.delete(
+        `/api/cart/${userId}/${productId}`
+      );
+      console.log("cart ------>", cart);
+      dispatch(deleteToCart(productId));
     } catch (err) {
-      console.log('🧤 deleteUserCart - err', err);
-      }
-  }
-}
+      console.log("🧤 deleteUserCart - err", err);
+    }
+  };
+};
 
 export const checkoutThunk = (id) => {
   return async (dispatch) => {
@@ -122,16 +117,20 @@ export const checkoutThunk = (id) => {
 const initialState = [];
 
 const cartReducer = (state = initialState, action) => {
-  console.log('🧤 action', action);
   switch (action.type) {
     case GET_USER_CART:
       return action.cart;
     case NEW_CART:
       return [...state, ...action.cart];
     case ADD_TO_CART:
-      return action.cart
+      return action.cart;
     case DELETE_FROM_CART:
-      return state.filter((cart) => cart.orderId !== action.orderId)
+      console.log("state ------>", state);
+      return state.filter((product) => {
+        if (product.order_products.productId !== action.productId) {
+          return product;
+        }
+      });
     case CHECKOUT:
       let newState = state;
       newState.isCart = false;
